@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Navbar</title>
+  <style>
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-menu-item {
+      list-style-type: none;
+      margin-right: 20px;
+    }
+
+    .navbar-menu-item a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    /* Hamburger Menu Styles */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    .hamburger-bar {
+      width: 30px;
+      height: 4px;
+      background-color: #fff;
+      margin-bottom: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .navbar-menu {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .navbar-menu.show {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hamburger.open .hamburger-bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 5px);
+      }
+
+      .hamburger.open .hamburger-bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.open .hamburger-bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -5px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="navbar-brand">Logo</span>
+
+    <ul class="navbar-menu">
+      <li class="navbar-menu-item"><a href="#">Home</a></li>
+      <li class="navbar-menu-item"><a href="#">About</a></li>
+      <li class="navbar-menu-item"><a href="#">Services</a></li>
+      <li class="navbar-menu-item"><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="hamburger">
+      <div class="hamburger-bar"></div>
+      <div class="hamburger-bar"></div>
+      <div class="hamburger-bar"></div>
+    </div>
+  </nav>
+
+  <script>
+    // Get the navbar menu and hamburger elements
+    const navbarMenu = document.querySelector('.navbar-menu');
+    const hamburger = document.querySelector('.hamburger');
+
+    // Toggle the menu when the hamburger is clicked
+    hamburger.addEventListener('click', function() {
+      navbarMenu.classList.toggle('show');
+      hamburger.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

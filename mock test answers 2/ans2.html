@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Input Box App</title>
+</head>
+<body>
+  <h1>Input Box App</h1>
+
+  <input type="text" id="inputBox">
+  <button id="submitButton">Submit</button>
+
+  <ul id="textList"></ul>
+
+  <script>
+    // Get the input box and submit button elements
+    const inputBox = document.getElementById("inputBox");
+    const submitButton = document.getElementById("submitButton");
+
+    // Get the list element to display the submitted texts
+    const textList = document.getElementById("textList");
+
+    // Add a click event listener to the submit button
+    submitButton.addEventListener("click", function() {
+      // Get the text value from the input box
+      const text = inputBox.value;
+
+      // Create a new list item
+      const listItem = document.createElement("li");
+      listItem.textContent = text;
+
+      // Append the list item to the text list
+      textList.appendChild(listItem);
+
+      // Clear the input box after submission
+      inputBox.value = "";
+    });
+  </script>
+</body>
+</html>

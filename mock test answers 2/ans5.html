@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Registration Form</h2>
+  <form id="registrationForm" onsubmit="validateForm(event)">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <span id="nameError" class="error"></span>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <span id="emailError" class="error"></span>
+    </div>
+    <div>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+      <span id="phoneError" class="error"></span>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <span id="passwordError" class="error"></span>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+      <span id="ageError" class="error"></span>
+    </div>
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">-- Select --</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <span id="genderError" class="error"></span>
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required>
+      <span id="dateError" class="error"></span>
+    </div>
+    <div>
+      <label for="color">Favorite Color:</label>
+      <input type="color" id="color" name="color" required>
+      <span id="colorError" class="error"></span>
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+
+      // Reset error messages
+      clearErrors();
+
+      // Get form values
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var password = document.getElementById('password').value;
+      var age = document.getElementById('age').value;
+      var gender = document.getElementById('gender').value;
+      var date = document.getElementById('date').value;
+      var color = document.getElementById('color').value;
+
+      // Validate name (should not be empty)
+      if (name === '') {
+        showError('nameError', 'Name is required');
+      }
+
+      // Validate email (should be a valid email address)
+      if (!validateEmail(email)) {
+        showError('emailError', 'Invalid email address');
+      }
+
+      // Validate phone number (should be 10 digits)
+      if (!validatePhone(phone)) {
+        showError('phoneError', 'Invalid phone number');
+      }
+
+      // Validate password (should be at least 6 characters long)
+      if (password.length < 6) {
+        showError('passwordError', 'Password should be at least 6 characters long');
+      }
+
+      // Validate age (should be a number between 18 and 99)
+      if (isNaN(age) || age < 18 || age > 99) {
+        showError('ageError', 'Age should be a number between 18 and 99');
+      }
+
+      // Validate gender (should be selected)
+      if (gender === '') {
+        showError('genderError', 'Gender is required');
+      }
+
+      // Validate date (should be a valid date)
+      if (!validateDate(date)) {
+        showError('dateError', 'Invalid date');
+      }
+
+      // Validate color (should be selected)
+      if (color === '') {
+        showError('colorError', 'Color is required');
+      }
+
+      // If there are no errors, submit the form
+      if (!hasErrors()) {
+        document.getElementById('registrationForm').submit();
+      }
+    }
+
+    function validateEmail(email) {
+      // Simple email validation regex pattern
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+
+    function validatePhone(phone) {
+      // Phone number validation regex pattern (exactly 10 digits)
+      var phonePattern = /^\d{10}$/;
+      return phonePattern.test(phone);
+    }
+
+    function validateDate(date) {
+      // Date validation regex pattern (YYYY-MM-DD)
+      var datePattern = /^\d{4}-\d{2}-\d{2}$/;
+      return datePattern.test(date);
+    }
+
+    function showError(elementId, errorMessage) {
+      var errorElement = document.getElementById(elementId);
+      errorElement.innerText = errorMessage;
+    }
+
+    function clearErrors() {
+      var errorElements = document.getElementsByClassName('error');
+      for (var i = 0; i < errorElements.length; i++) {
+        errorElements[i].innerText = '';
+      }
+    }
+
+    function hasErrors() {
+      var errorElements = document.getElementsByClassName('error');
+      for (var i = 0; i < errorElements.length; i++) {
+        if (errorElements[i].innerText !== '') {
+          return true;
+        }
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
